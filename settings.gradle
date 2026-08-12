@@ -1,5 +1,9 @@
-plugins {
-	id "fabric-loom" version "1.7.+" apply false
+pluginManagement {
+	repositories {
+		maven { url "https://maven.fabricmc.net/" }
+		gradlePluginPortal()
+		mavenCentral()
+	}
 }
 
 rootProject.name = "noteblock-range"

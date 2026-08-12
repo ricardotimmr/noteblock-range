@@ -1,11 +1,11 @@
 #!/bin/sh
 
-# Gradle Wrapper initialization script for Unix-like systems
-# This script downloads and executes Gradle
+APP_HOME=$(cd "$(dirname "$0")" >/dev/null 2>&1 && pwd)
 
-APP_NAME="gradlew"
-APP_BASE_NAME=$(basename "$0")
-DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
+if [ -n "$JAVA_HOME" ]; then
+	JAVA_CMD="$JAVA_HOME/bin/java"
+else
+	JAVA_CMD="java"
+fi
 
-cd "$DIR"
-exec "$JAVA_HOME/bin/java" -jar gradle/wrapper/gradle-wrapper.jar "$@"
+exec "$JAVA_CMD" -classpath "$APP_HOME/gradle/wrapper/gradle-wrapper.jar" org.gradle.wrapper.GradleWrapperMain "$@"

@@ -1,6 +1,7 @@
 package de.ricardo.noteblockrange.client;
 
 import de.ricardo.noteblockrange.NoteBlockRangeMod;
+import de.ricardo.noteblockrange.config.NoteBlockRangeConfigManager;
 import net.fabricmc.api.ClientModInitializer;
 import net.fabricmc.api.Environment;
 import net.fabricmc.api.EnvType;
@@ -16,6 +17,7 @@ public class NoteBlockRangeClient implements ClientModInitializer {
 
 	@Override
 	public void onInitializeClient() {
+		NoteBlockRangeConfigManager.load();
 		LOGGER.info("Note Block Range mod initialized on client!");
 	}
 }
