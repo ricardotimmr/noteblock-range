@@ -1,0 +1,67 @@
+plugins {
+	id "fabric-loom" version "1.7.+"
+	id "maven-publish"
+}
+
+sourceCompatibility = JavaVersion.VERSION_21
+targetCompatibility = JavaVersion.VERSION_21
+
+version = project.mod_version
+group = project.maven_group
+
+repositories {
+	mavenCentral()
+	maven { url "https://api.modrinth.com/maven" }
+	maven { url "https://maven.fabricmc.net/" }
+	maven { url "https://maven.architectury.dev/" }
+	maven { url "https://maven.minecraftforge.net/" }
+}
+
+dependencies {
+	// Minecraft + Fabric Loader
+	minecraft "com.mojang:minecraft:${project.minecraft_version}"
+	mappings loom.officialMojangMappings()
+	
+	// Fabric Loader
+	modImplementation "net.fabricmc:fabric-loader:${project.loader_version}"
+	
+	// Fabric API
+	modImplementation "net.fabricmc.fabric-api:fabric-api:${project.fabric_version}"
+}
+
+loom {
+	accessWidenerPath = file("src/main/resources/noteblockrange.accesswidener")
+}
+
+processResources {
+	inputs.property "version", project.version
+	inputs.property "fabricApiVersion", project.fabric_version
+	inputs.property "loaderVersion", project.loader_version
+
+	filesMatching("fabric.mod.json") {
+		expand "version": project.version,
+			"fabricApiVersion": project.fabric_version,
+			"loaderVersion": project.loader_version
+	}
+}
+
+tasks.withType(JavaCompile).configureEach {
+	it.options.release = 21
+}
+
+jar {
+	from("LICENSE") {
+		rename it, "${it}_${project.archivesBaseName}"
+	}
+}
+
+publishing {
+	publications {
+		mavenJava(MavenPublication) {
+			from components.java
+		}
+	}
+
+	repositories {
+	}
+}

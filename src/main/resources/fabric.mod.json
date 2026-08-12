@@ -1,0 +1,31 @@
+{
+  "schemaVersion": 1,
+  "id": "noteblockrange",
+  "version": "${version}",
+  "name": "Note Block Range",
+  "description": "Increases the hearing range of vanilla note blocks from vanilla default to ~256 blocks. Client-side only, no server mod required.",
+  "authors": [
+    "Ricardo"
+  ],
+  "contact": {
+    "homepage": "https://github.com/yourusername/noteblock-range"
+  },
+  "license": "MIT",
+  "environment": "client",
+  "entrypoints": {
+    "main": [
+      "de.ricardo.noteblockrange.NoteBlockRangeMod"
+    ],
+    "client": [
+      "de.ricardo.noteblockrange.client.NoteBlockRangeClient"
+    ]
+  },
+  "mixins": [
+    "noteblockrange.mixins.json"
+  ],
+  "depends": {
+    "fabricloader": ">=${loaderVersion}",
+    "fabric-api": "*",
+    "minecraft": "1.21.1"
+  }
+}

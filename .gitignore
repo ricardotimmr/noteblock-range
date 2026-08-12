@@ -1,0 +1,19 @@
+# Gradle
+.gradle/
+build/
+*.jar
+*.zip
+
+# IDE
+.vscode/
+.idea/
+*.iml
+*.iws
+*.ipr
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Wrapper downloads (keep .properties file)
+gradle/wrapper/gradle-wrapper.jar

@@ -1,0 +1,14 @@
+{
+  "version": 0.2,
+  "minVersion": 0.8,
+  "package": "de.ricardo.noteblockrange.mixin",
+  "compatibilityLevel": "JAVA_21",
+  "mixins": [],
+  "client": [
+    "SoundInstanceMixin",
+    "SoundManagerMixin"
+  ],
+  "injectors": {
+    "defaultRequire": 1
+  }
+}
