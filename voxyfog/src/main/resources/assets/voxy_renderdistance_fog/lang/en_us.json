@@ -1,0 +1,8 @@
+{
+  "voxy_renderdistance_fog.options.title": "VoxyFog Settings",
+  "voxy_renderdistance_fog.option.enabled": "Voxy Distance Fog",
+  "voxy_renderdistance_fog.option.enabled.tooltip": "Toggles the extra fog fade added for Voxy's render distance.",
+  "voxy_renderdistance_fog.option.fog_start": "Fog Start: %s chunks",
+  "voxy_renderdistance_fog.command.enabled": "Voxy Distance Fog: %s",
+  "voxy_renderdistance_fog.command.fog_start": "VoxyFog start: %s chunks"
+}

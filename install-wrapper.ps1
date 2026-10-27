@@ -1,27 +1,15 @@
-# Install Gradle Wrapper
-$wrapperDir = ".\gradle\wrapper"
-$wrapperJarUrl = "https://services.gradle.org/distributions/gradle-8.8-bin.zip"
-$wrapperZip = "$env:TEMP\gradle-wrapper.zip"
-$gradleDir = "$env:TEMP\gradle-8.8"
+# Restore the official wrapper if it is missing from a source archive.
+$ErrorActionPreference = "Stop"
+$wrapperDir = Join-Path $PSScriptRoot "gradle/wrapper"
+$wrapperJar = Join-Path $wrapperDir "gradle-wrapper.jar"
+$wrapperJarUrl = "https://raw.githubusercontent.com/gradle/gradle/v9.7.1/gradle/wrapper/gradle-wrapper.jar"
+$expectedSha256 = "7A9CE74CFF467CA1BF60A4FCD9F05185ACCEDA4D0F382434D393E17864262C5D"
 
-# Create wrapper directory
-if (-not (Test-Path $wrapperDir)) {
-    New-Item -ItemType Directory -Path $wrapperDir -Force | Out-Null
+New-Item -ItemType Directory -Path $wrapperDir -Force | Out-Null
+Invoke-WebRequest -Uri $wrapperJarUrl -OutFile $wrapperJar
+if ((Get-FileHash -LiteralPath $wrapperJar -Algorithm SHA256).Hash -ne $expectedSha256) {
+    Remove-Item -LiteralPath $wrapperJar
+    throw "Gradle wrapper checksum mismatch."
 }
 
-# Download Gradle distribution
-Write-Host "Downloading Gradle wrapper from $wrapperJarUrl ..."
-Invoke-WebRequest -Uri $wrapperJarUrl -OutFile $wrapperZip
-
-# Extract to temp directory
-Write-Host "Extracting Gradle..."
-Expand-Archive -Path $wrapperZip -DestinationPath $env:TEMP -Force
-
-# Copy wrapper JAR
-Write-Host "Installing wrapper JAR..."
-Copy-Item "$gradleDir\lib\gradle-wrapper.jar" -Destination "$wrapperDir\gradle-wrapper.jar" -Force
-
-# Cleanup
-Remove-Item $wrapperZip -Force
-
-Write-Host "Gradle wrapper installed successfully!"
+Write-Host "Gradle 9.7.1 wrapper installed successfully."

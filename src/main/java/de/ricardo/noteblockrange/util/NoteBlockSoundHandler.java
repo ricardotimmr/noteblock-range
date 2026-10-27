@@ -3,7 +3,7 @@ package de.ricardo.noteblockrange.util;
 import de.ricardo.noteblockrange.config.NoteBlockRangeConfigManager;
 import net.minecraft.core.Holder;
 import net.minecraft.client.resources.sounds.SoundInstance;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.sounds.SoundEvent;
 
 /**
@@ -18,14 +18,14 @@ public final class NoteBlockSoundHandler {
 	}
 
 	public static boolean isNoteBlockSound(SoundInstance soundInstance) {
-		return isNoteBlockSound(soundInstance.getLocation());
+		return isNoteBlockSound(soundInstance.getIdentifier());
 	}
 
 	public static boolean isNoteBlockSound(Holder<SoundEvent> soundEvent) {
 		return isNoteBlockSound(soundEvent.value().location());
 	}
 
-	public static boolean isNoteBlockSound(ResourceLocation id) {
+	public static boolean isNoteBlockSound(Identifier id) {
 		return NOTE_BLOCK_NAMESPACE.equals(id.getNamespace()) && id.getPath().startsWith(NOTE_BLOCK_PATH_PREFIX);
 	}
 
@@ -33,13 +33,12 @@ public final class NoteBlockSoundHandler {
 		return NoteBlockRangeConfigManager.getConfig().getRangeBlocks();
 	}
 
-	public static int attenuationDistanceForRange(int vanillaAttenuationDistance, SoundInstance soundInstance) {
+	public static float attenuationDistanceForRange(float vanillaAttenuationDistance, SoundInstance soundInstance) {
 		if (!isNoteBlockSound(soundInstance)) {
 			return vanillaAttenuationDistance;
 		}
 
-		float volumeMultiplier = Math.max(soundInstance.getVolume(), 1.0f);
-		int extendedAttenuationDistance = (int) Math.ceil(configuredRangeBlocks() / volumeMultiplier);
-		return Math.max(vanillaAttenuationDistance, extendedAttenuationDistance);
+		// Since 26.3 Minecraft has already applied the volume multiplier here.
+		return Math.max(vanillaAttenuationDistance, configuredRangeBlocks());
 	}
 }

@@ -7,3 +7,7 @@ pluginManagement {
 }
 
 rootProject.name = "noteblock-range"
+
+includeBuild("voxyfog") {
+	name = "voxyfog"
+}

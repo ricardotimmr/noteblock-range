@@ -2,7 +2,7 @@ package de.ricardo.noteblockrange.client.gui;
 
 import de.ricardo.noteblockrange.config.NoteBlockRangeConfig;
 import de.ricardo.noteblockrange.config.NoteBlockRangeConfigManager;
-import net.minecraft.client.gui.GuiGraphics;
+import net.minecraft.client.gui.GuiGraphicsExtractor;
 import net.minecraft.client.gui.components.Button;
 import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.network.chat.Component;
@@ -37,16 +37,16 @@ public final class NoteBlockRangeConfigScreen extends Screen {
 	}
 
 	@Override
-	public void render(GuiGraphics guiGraphics, int mouseX, int mouseY, float partialTick) {
-		super.render(guiGraphics, mouseX, mouseY, partialTick);
-		guiGraphics.drawCenteredString(font, title, width / 2, height / 2 - 62, 0xFFFFFF);
-		guiGraphics.drawCenteredString(font, Component.literal("Affects received vanilla note block sounds only."), width / 2, height / 2 + 28, 0xA0A0A0);
+	public void extractRenderState(GuiGraphicsExtractor guiGraphics, int mouseX, int mouseY, float partialTick) {
+		super.extractRenderState(guiGraphics, mouseX, mouseY, partialTick);
+		guiGraphics.centeredText(font, title, width / 2, height / 2 - 62, 0xFFFFFFFF);
+		guiGraphics.centeredText(font, Component.literal("Affects received vanilla note block sounds only."), width / 2, height / 2 + 28, 0xFFA0A0A0);
 	}
 
 	@Override
 	public void onClose() {
 		if (minecraft != null) {
-			minecraft.setScreen(parent);
+			minecraft.gui.setScreen(parent);
 		}
 	}
 

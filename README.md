@@ -1,6 +1,6 @@
 # Note Block Range
 
-Client-side Fabric mod for Minecraft 1.21.10 that changes only vanilla note
+Client-side Fabric mod for Minecraft 26.3 that changes only vanilla note
 block sound range.
 
 ## What it changes
@@ -43,7 +43,7 @@ or the default value.
 ## Important limitation
 
 Vanilla note blocks are triggered server-side in `NoteBlock.triggerEvent(...)`.
-For normal instruments, Minecraft 1.21.10 calls `Level.playSeededSound(...)`
+For normal instruments, Minecraft 26.3 calls `Level.playSeededSound(...)`
 with volume `3.0f`.
 
 On the server, `ServerLevel.playSeededSound(...)` sends a
@@ -63,6 +63,9 @@ it cannot hear note block packets the remote server never sent.
 
 ## Build
 
+Requires JDK 25. The included wrapper downloads Gradle 9.7.1 automatically.
+The root build also builds the independent VoxyFog project in `voxyfog/`.
+
 ```sh
 ./gradlew build
 ```
@@ -76,14 +79,17 @@ On Windows:
 The built mod jar is written to:
 
 ```text
-build/libs/noteblock-range-1.0.0.jar
+build/libs/noteblockrange-1.2.0+26.3.jar
 ```
+
+VoxyFog is written to `voxyfog/build/libs/VoxyFog-0.2.0+26.3.jar`.
+See [its README](voxyfog/README.md) for requirements and development commands.
 
 ## Test
 
-Install Fabric Loader for Minecraft 1.21.10 and put the built jar into the
+Install Fabric Loader 0.20.1 or newer for Minecraft 26.3 and put the built jar into the
 client's `mods` folder. Fabric API is not required. Mod Menu is optional and
-only needed for the in-game configuration screen.
+only needed for the in-game configuration screen (use Mod Menu 21.0.0 for 26.3).
 
 In singleplayer, set a range in Mod Menu, trigger vanilla note blocks, and move
 away from them until the configured distance is reached. On an unmodified remote

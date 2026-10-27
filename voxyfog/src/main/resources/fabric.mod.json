@@ -1,0 +1,33 @@
+{
+  "schemaVersion": 1,
+  "id": "voxy_renderdistance_fog",
+  "version": "${version}",
+  "name": "VoxyFog",
+  "description": "Adds render distance fog to voxy",
+  "icon": "icon.png",
+  "authors": [
+    "not_tim"
+  ],
+  "environment": "client",
+  "entrypoints": {
+    "client": [
+      "dev.not_tim.voxyfog.VoxyFogClient"
+    ],
+    "modmenu": [
+      "dev.not_tim.voxyfog.ModMenuIntegration"
+    ]
+  },
+  "mixins": [
+    "voxy-fog-addon.mixins.json"
+  ],
+  "depends": {
+    "fabricloader": ">=${loaderVersion}",
+    "minecraft": "~${minecraftVersion}",
+    "java": ">=25",
+    "fabric-api": "*"
+  },
+  "suggests": {
+    "voxy": "0.2.20-beta",
+    "modmenu": "*"
+  }
+}

@@ -1,0 +1,12 @@
+{
+  "required": true,
+  "package": "dev.not_tim.voxyfog.mixin",
+  "compatibilityLevel": "JAVA_25",
+  "client": [
+    "MixinFogRenderer",
+    "MixinNormalRenderPipeline"
+  ],
+  "injectors": {
+    "defaultRequire": 1
+  }
+}

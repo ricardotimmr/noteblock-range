@@ -2,6 +2,7 @@
 .gradle/
 build/
 *.jar
+!**/gradle/wrapper/gradle-wrapper.jar
 *.zip
 
 # IDE
@@ -15,5 +16,6 @@ build/
 .DS_Store
 Thumbs.db
 
-# Wrapper downloads (keep .properties file)
-gradle/wrapper/gradle-wrapper.jar
+# Local Minecraft runtime
+run/
+voxyfog/build-artifacts/

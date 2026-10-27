@@ -1,10 +1,17 @@
 plugins {
-	id "fabric-loom" version "1.13.6"
+	id "net.fabricmc.fabric-loom" version "${loom_version}"
 	id "maven-publish"
 }
 
-sourceCompatibility = JavaVersion.VERSION_21
-targetCompatibility = JavaVersion.VERSION_21
+base {
+	archivesName = project.archives_base_name
+}
+
+java {
+	toolchain.languageVersion = JavaLanguageVersion.of(25)
+	sourceCompatibility = JavaVersion.VERSION_25
+	targetCompatibility = JavaVersion.VERSION_25
+}
 
 version = project.mod_version
 group = project.maven_group
@@ -17,27 +24,25 @@ repositories {
 
 dependencies {
 	minecraft "com.mojang:minecraft:${project.minecraft_version}"
-	mappings loom.officialMojangMappings()
 
-	modImplementation "net.fabricmc:fabric-loader:${project.loader_version}"
-	modCompileOnly "com.terraformersmc:modmenu:${project.modmenu_version}"
-}
-
-loom {
+	implementation "net.fabricmc:fabric-loader:${project.loader_version}"
+	compileOnly "com.terraformersmc:modmenu:${project.modmenu_version}"
 }
 
 processResources {
 	inputs.property "version", project.version
 	inputs.property "loaderVersion", project.loader_version
+	inputs.property "minecraftVersion", project.minecraft_version
 
 	filesMatching("fabric.mod.json") {
 		expand "version": project.version,
-			"loaderVersion": project.loader_version
+			"loaderVersion": project.loader_version,
+			"minecraftVersion": project.minecraft_version
 	}
 }
 
 tasks.withType(JavaCompile).configureEach {
-	it.options.release = 21
+	it.options.release = 25
 }
 
 jar {
@@ -55,4 +60,8 @@ publishing {
 
 	repositories {
 	}
+}
+
+tasks.named("build") {
+	dependsOn gradle.includedBuild("voxyfog").task(":build")
 }
